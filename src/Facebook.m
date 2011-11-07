@@ -337,6 +337,11 @@ static NSString* kSDKVersion = @"2";
       return YES;
     }
 
+    if (errorReason && [errorReason isEqualToString:@"unknown_error"]) {
+      [self authorizeWithFBAppAuth:NO safariAuth:NO];
+      return YES;
+    }
+
     // The facebook app may return an error_code parameter in case it
     // encounters a UIWebViewDelegate error. This should not be treated
     // as a cancel.
