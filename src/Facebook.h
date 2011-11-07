@@ -35,12 +35,14 @@
   NSString* _appId;
   NSString* _urlSchemeSuffix;
   NSArray* _permissions;
+  Class _FBRequestClass; // mirego
 }
 
 @property(nonatomic, copy) NSString* accessToken;
 @property(nonatomic, copy) NSDate* expirationDate;
 @property(nonatomic, assign) id<FBSessionDelegate> sessionDelegate;
 @property(nonatomic, copy) NSString* urlSchemeSuffix;
+@property(nonatomic, assign) Class FBRequestClass; // mirego
 
 - (id)initWithAppId:(NSString *)appId
         andDelegate:(id<FBSessionDelegate>)delegate;

@@ -49,6 +49,7 @@ static NSString* kSDKVersion = @"2";
         sessionDelegate = _sessionDelegate,
             permissions = _permissions,
         urlSchemeSuffix = _urlSchemeSuffix,
+         FBRequestClass = _FBRequestClass, // mirego
                   appId = _appId;
 
 
@@ -140,11 +141,15 @@ static NSString* kSDKVersion = @"2";
     [params setValue:self.accessToken forKey:@"access_token"];
   }
 
+  Class requestClass = _FBRequestClass;
+  if (![requestClass isSubclassOfClass:[FBRequest class]])
+    requestClass = [FBRequest class];
+
   [_request release];
-  _request = [[FBRequest getRequestWithParams:params
-                                   httpMethod:httpMethod
-                                     delegate:delegate
-                                   requestURL:url] retain];
+  _request = [[requestClass getRequestWithParams:params
+                                      httpMethod:httpMethod
+                                        delegate:delegate
+                                      requestURL:url] retain];
   [_request connect];
   return _request;
 }
