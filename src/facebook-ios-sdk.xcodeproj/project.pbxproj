@@ -9,14 +9,14 @@
 /* Begin PBXBuildFile section */
 		AA747D9F0F9514B9006C5449 /* facebook_ios_sdk_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* facebook_ios_sdk_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
-		AEA93B0A11D5293B000A4545 /* FBConnect.h in Headers */ = {isa = PBXBuildFile; fileRef = AEA93B0111D5293B000A4545 /* FBConnect.h */; };
-		AEA93B0B11D5293B000A4545 /* FBRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = AEA93B0211D5293B000A4545 /* FBRequest.h */; };
+		AEA93B0A11D5293B000A4545 /* FBConnect.h in Headers */ = {isa = PBXBuildFile; fileRef = AEA93B0111D5293B000A4545 /* FBConnect.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AEA93B0B11D5293B000A4545 /* FBRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = AEA93B0211D5293B000A4545 /* FBRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AEA93B0C11D5293B000A4545 /* FBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA93B0311D5293B000A4545 /* FBRequest.m */; };
 		AEA93B0D11D5293B000A4545 /* Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA93B0411D5293B000A4545 /* Facebook.m */; };
-		AEA93B0E11D5293B000A4545 /* Facebook.h in Headers */ = {isa = PBXBuildFile; fileRef = AEA93B0511D5293B000A4545 /* Facebook.h */; };
-		AEA93B0F11D5293B000A4545 /* FBLoginDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = AEA93B0611D5293B000A4545 /* FBLoginDialog.h */; };
+		AEA93B0E11D5293B000A4545 /* Facebook.h in Headers */ = {isa = PBXBuildFile; fileRef = AEA93B0511D5293B000A4545 /* Facebook.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AEA93B0F11D5293B000A4545 /* FBLoginDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = AEA93B0611D5293B000A4545 /* FBLoginDialog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AEA93B1011D5293B000A4545 /* FBLoginDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA93B0711D5293B000A4545 /* FBLoginDialog.m */; };
-		AEA93B1111D5293B000A4545 /* FBDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = AEA93B0811D5293B000A4545 /* FBDialog.h */; };
+		AEA93B1111D5293B000A4545 /* FBDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = AEA93B0811D5293B000A4545 /* FBDialog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AEA93B1211D5293B000A4545 /* FBDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA93B0911D5293B000A4545 /* FBDialog.m */; };
 /* End PBXBuildFile section */
 
@@ -107,12 +107,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA747D9F0F9514B9006C5449 /* facebook_ios_sdk_Prefix.pch in Headers */,
 				AEA93B0A11D5293B000A4545 /* FBConnect.h in Headers */,
 				AEA93B0B11D5293B000A4545 /* FBRequest.h in Headers */,
 				AEA93B0E11D5293B000A4545 /* Facebook.h in Headers */,
 				AEA93B0F11D5293B000A4545 /* FBLoginDialog.h in Headers */,
 				AEA93B1111D5293B000A4545 /* FBDialog.h in Headers */,
+				AA747D9F0F9514B9006C5449 /* facebook_ios_sdk_Prefix.pch in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
