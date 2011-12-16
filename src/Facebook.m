@@ -30,6 +30,9 @@ static NSString* kLogin = @"oauth";
 static NSString* kSDK = @"ios";
 static NSString* kSDKVersion = @"2";
 
+static NSString *requestFinishedKeyPath = @"finished";
+static void *finishedContext = @"finishedContext";
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 @interface Facebook ()
@@ -94,6 +97,7 @@ static NSString* kSDKVersion = @"2";
   
   self = [super init];
   if (self) {
+    _requests = [[NSMutableSet alloc] init];
     self.appId = appId;
     self.sessionDelegate = delegate;
     self.urlSchemeSuffix = urlSchemeSuffix;
@@ -105,9 +109,12 @@ static NSString* kSDKVersion = @"2";
  * Override NSObject : free the space
  */
 - (void)dealloc {
+  for (FBRequest* _request in _requests) {
+    [_request removeObserver:self forKeyPath:requestFinishedKeyPath];
+  }
   [_accessToken release];
   [_expirationDate release];
-  [_request release];
+  [_requests release];
   [_loginDialog release];
   [_fbDialog release];
   [_appId release];
@@ -141,17 +148,31 @@ static NSString* kSDKVersion = @"2";
     [params setValue:self.accessToken forKey:@"access_token"];
   }
 
-  Class requestClass = _FBRequestClass;
-  if (![requestClass isSubclassOfClass:[FBRequest class]])
-    requestClass = [FBRequest class];
+  Class freqClass = _FBRequestClass;
+  if (![freqClass isSubclassOfClass:[FBRequest class]])
+        freqClass = [FBRequest class];
 
-  [_request release];
-  _request = [[requestClass getRequestWithParams:params
-                                      httpMethod:httpMethod
-                                        delegate:delegate
-                                      requestURL:url] retain];
+  FBRequest* _request = [freqClass getRequestWithParams:params
+                                             httpMethod:httpMethod
+                                               delegate:delegate
+                                             requestURL:url];
+  [_requests addObject:_request];
+  [_request addObserver:self forKeyPath:requestFinishedKeyPath options:0 context:finishedContext];
   [_request connect];
   return _request;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+  if (context == finishedContext) {
+    FBRequest* _request = (FBRequest*)object;
+    FBRequestState requestState = [_request state];
+    if (requestState == kFBRequestStateComplete || requestState == kFBRequestStateError) {
+      [_request removeObserver:self forKeyPath:requestFinishedKeyPath];
+      [_requests removeObject:_request];
+    }
+  } else {
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+  }
 }
 
 /**
@@ -375,30 +396,24 @@ static NSString* kSDKVersion = @"2";
  * it just removes the access token. To unauthorize the application,
  * the user must remove the app in the app settings page under the privacy
  * settings screen on facebook.com.
- *
- * @param delegate
- *            Callback interface for notifying the calling application when
- *            the application has logged out
  */
-- (void)logout:(id<FBSessionDelegate>)delegate {
-
-  self.sessionDelegate = delegate;
-  [_accessToken release];
-  _accessToken = nil;
-  [_expirationDate release];
-  _expirationDate = nil;
-
-  NSHTTPCookieStorage* cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-  NSArray* facebookCookies = [cookies cookiesForURL:
-    [NSURL URLWithString:@"http://login.facebook.com"]];
-
-  for (NSHTTPCookie* cookie in facebookCookies) {
-    [cookies deleteCookie:cookie];
-  }
-
-  if ([self.sessionDelegate respondsToSelector:@selector(fbDidLogout)]) {
-    [_sessionDelegate fbDidLogout];
-  }
+- (void)logout {
+    [_accessToken release];
+    _accessToken = nil;
+    [_expirationDate release];
+    _expirationDate = nil;
+    
+    NSHTTPCookieStorage* cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSArray* facebookCookies = [cookies cookiesForURL:
+                                [NSURL URLWithString:@"http://login.facebook.com"]];
+    
+    for (NSHTTPCookie* cookie in facebookCookies) {
+        [cookies deleteCookie:cookie];
+    }
+    
+    if ([self.sessionDelegate respondsToSelector:@selector(fbDidLogout)]) {
+        [self.sessionDelegate fbDidLogout];
+    }
 }
 
 /**
@@ -636,7 +651,7 @@ static NSString* kSDKVersion = @"2";
   self.accessToken = token;
   self.expirationDate = expirationDate;
   if ([self.sessionDelegate respondsToSelector:@selector(fbDidLogin)]) {
-    [_sessionDelegate fbDidLogin];
+    [self.sessionDelegate fbDidLogin];
   }
 
 }
@@ -646,20 +661,8 @@ static NSString* kSDKVersion = @"2";
  */
 - (void)fbDialogNotLogin:(BOOL)cancelled {
   if ([self.sessionDelegate respondsToSelector:@selector(fbDidNotLogin:)]) {
-    [_sessionDelegate fbDidNotLogin:cancelled];
+    [self.sessionDelegate fbDidNotLogin:cancelled];
   }
-}
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-//FBRequestDelegate
-
-/**
- * Handle the auth.ExpireSession api call failure
- */
-- (void)request:(FBRequest*)request didFailWithError:(NSError*)error{
-  NSLog(@"Failed to expire the session");
 }
 
 @end
