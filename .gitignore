@@ -21,3 +21,5 @@ test/UnitTest/build/
 *~
 *#
 .arcconfig
+
+test/UnitTest/UnitTest.xcodeproj/xcuserdata/
