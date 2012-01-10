@@ -107,12 +107,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA747D9F0F9514B9006C5449 /* facebook_ios_sdk_Prefix.pch in Headers */,
 				AEA93B0A11D5293B000A4545 /* FBConnect.h in Headers */,
 				AEA93B0B11D5293B000A4545 /* FBRequest.h in Headers */,
 				AEA93B0E11D5293B000A4545 /* Facebook.h in Headers */,
 				AEA93B0F11D5293B000A4545 /* FBLoginDialog.h in Headers */,
 				AEA93B1111D5293B000A4545 /* FBDialog.h in Headers */,
-				AA747D9F0F9514B9006C5449 /* facebook_ios_sdk_Prefix.pch in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,7 +188,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = facebook_ios_sdk_Prefix.pch;
-				INSTALL_PATH = /usr/local/lib;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
 				PRODUCT_NAME = facebook_ios_sdk;
 				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -206,7 +206,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = facebook_ios_sdk_Prefix.pch;
-				INSTALL_PATH = /usr/local/lib;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
 				PRODUCT_NAME = facebook_ios_sdk;
 				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
