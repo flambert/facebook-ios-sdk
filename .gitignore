@@ -15,11 +15,15 @@ src/facebook-ios-sdk.xcodeproj/*.pbxuser
 src/facebook-ios-sdk.xcodeproj/*.mode*
 src/facebook-ios-sdk.xcodeproj/xcuserdata
 src/build/
+build/
+lib/
+test/UnitTest/UnitTest.xcodeproj/xcuserdata/
 test/UnitTest/UnitTest.xcodeproj/*.pbxuser
 test/UnitTest/UnitTest.xcodeproj/*.mode*
 test/UnitTest/build/
 *~
 *#
 .arcconfig
-
-test/UnitTest/UnitTest.xcodeproj/xcuserdata/
+.DS_Store
+project.xcworkspace
+xcuserdata
