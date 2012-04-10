@@ -17,7 +17,7 @@
 #import "Facebook.h"
 #import "FBLoginDialog.h"
 #import "FBRequest.h"
-#import "JSON.h"
+#import "SBJson.h"
 
 static NSString* kDialogBaseURL = @"https://m.facebook.com/dialog/";
 static NSString* kGraphBaseURL = @"https://graph.facebook.com/";

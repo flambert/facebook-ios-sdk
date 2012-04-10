@@ -202,7 +202,7 @@ static const NSTimeInterval kTimeoutInterval = 180.0;
     }
     
     
-    SBJSON *jsonParser = [[SBJSON alloc] init];
+    SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
     id result = [jsonParser objectWithString:responseString];
     [jsonParser release];
 
